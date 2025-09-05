@@ -1,0 +1,20 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Tabla Gestores</title>
+<h1>Tabla Gestores (vista rápida)</h1>
+<table id="t" border="1"></table>
+<script>
+fetch('sabana_publica.csv').then(r=>r.text()).then(txt=>{
+  const rows = txt.trim().split(/\r?\n/).slice(0,100); // primeras 100 filas para vista rápida
+  const t = document.getElementById('t');
+  rows.forEach((line,i)=>{
+    const tr = document.createElement('tr');
+    line.split(',').forEach(c=>{
+      const cell = document.createElement(i? 'td':'th');
+      cell.textContent = c.replace(/^"|"$/g,'');
+      tr.appendChild(cell);
+    });
+    t.appendChild(tr);
+  });
+});
+</script>
